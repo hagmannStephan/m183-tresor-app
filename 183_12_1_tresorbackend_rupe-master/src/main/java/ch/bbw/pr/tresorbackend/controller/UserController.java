@@ -2,6 +2,7 @@ package ch.bbw.pr.tresorbackend.controller;
 
 import ch.bbw.pr.tresorbackend.model.ConfigProperties;
 import ch.bbw.pr.tresorbackend.model.EmailAdress;
+import ch.bbw.pr.tresorbackend.model.LoginUser;
 import ch.bbw.pr.tresorbackend.model.RegisterUser;
 import ch.bbw.pr.tresorbackend.model.User;
 import ch.bbw.pr.tresorbackend.service.PasswordEncryptionService;
@@ -95,6 +96,64 @@ public class UserController {
       return ResponseEntity.accepted().body(json);
    }
 
+   // User login endpoint
+   @PostMapping("/login")
+   public ResponseEntity<String> doLoginUser(@RequestBody LoginUser loginUser, BindingResult bindingResult) {
+      logger.info("UserController.doLoginUser: Attempting login for email: {}", loginUser.getEmail());
+      
+      // Input validation
+      if (bindingResult.hasErrors()) {
+         List<String> errors = bindingResult.getFieldErrors().stream()
+               .map(fieldError -> fieldError.getField() + ": " + fieldError.getDefaultMessage())
+               .collect(Collectors.toList());
+         
+         JsonArray arr = new JsonArray();
+         errors.forEach(arr::add);
+         JsonObject obj = new JsonObject();
+         obj.add("message", arr);
+         String json = new Gson().toJson(obj);
+         
+         logger.error("UserController.doLoginUser: Validation failed: {}", json);
+         return ResponseEntity.badRequest().body(json);
+      }
+      
+      // Find user by email
+      User user = userService.findByEmail(loginUser.getEmail());
+      if (user == null) {
+         logger.warn("UserController.doLoginUser: No user found with email: {}", loginUser.getEmail());
+         
+         JsonObject obj = new JsonObject();
+         obj.addProperty("message", "Invalid email or password");
+         String json = new Gson().toJson(obj);
+         
+         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(json);
+      }
+      
+      // Verify password
+      boolean passwordMatches = passwordService.verifyPassword(loginUser.getPassword(), user.getPassword());
+      if (!passwordMatches) {
+         logger.warn("UserController.doLoginUser: Password mismatch for user: {}", user.getEmail());
+         
+         JsonObject obj = new JsonObject();
+         obj.addProperty("message", "Invalid email or password");
+         String json = new Gson().toJson(obj);
+         
+         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(json);
+      }
+      
+      // Login successful
+      logger.info("UserController.doLoginUser: Login successful for user ID: {}", user.getId());
+      
+      JsonObject obj = new JsonObject();
+      obj.addProperty("userId", user.getId());
+      obj.addProperty("firstName", user.getFirstName());
+      obj.addProperty("lastName", user.getLastName());
+      obj.addProperty("email", user.getEmail());
+      String json = new Gson().toJson(obj);
+      
+      return ResponseEntity.ok().body(json);
+   }
+
    // build get user by id REST API
    // http://localhost:8080/api/users/1
    @GetMapping("{id}")
@@ -171,5 +230,4 @@ public class UserController {
       System.out.println("UserController.getUserIdByEmail " + json);
       return ResponseEntity.accepted().body(json);
    }
-
 }
