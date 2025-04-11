@@ -14,6 +14,7 @@ function LoginUser({loginValues, setLoginValues}) {
         console.log('Submitting login data:', loginValues);
         
         try {
+            console.log("Password: ", loginValues.password);
             const response = await fetch('http://localhost:8080/api/users/login', {
                 method: 'POST',
                 headers: {
@@ -24,6 +25,7 @@ function LoginUser({loginValues, setLoginValues}) {
                     password: loginValues.password
                 })
             });
+            console.log('Response status:', response.status);
             
             const data = await response.json();
             

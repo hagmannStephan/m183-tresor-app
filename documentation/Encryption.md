@@ -1,25 +1,14 @@
-package ch.bbw.pr.tresorbackend.util;
-
-import javax.crypto.Cipher;
-import javax.crypto.spec.IvParameterSpec;
-import javax.crypto.spec.SecretKeySpec;
-import java.nio.charset.StandardCharsets;
-import java.security.MessageDigest;
-import java.security.SecureRandom;
-import java.util.Base64;
-
-
-/**
- * EncryptUtil
- * Used to encrypt content.
- * Not implemented yet.
- * @author Peter Rutschmann
- */
-public class EncryptUtil {
-   private final SecretKeySpec secretKeySpec;
-   private static final String ALGORITHM = "AES/CBC/PKCS5Padding";
-   private static final int IV_LENGTH = 16;
-
+# Encrypt Util
+## General
+I added these attributes to the class:
+```java
+   private final SecretKeySpec secretKeySpec;
+   private static final String ALGORITHM = "AES/CBC/PKCS5Padding";
+   private static final int IV_LENGTH = 16;
+```
+## EncryptUtil
+The EncryptUtil constructor initializes an AES encryption key from a given secret string:
+```java
    public EncryptUtil(String secretKey) {
       try {
          MessageDigest sha = MessageDigest.getInstance("SHA-256");
@@ -30,7 +19,11 @@ public class EncryptUtil {
          throw new RuntimeException("Error initializing secret key", e);
       }
    }
-
+```
+## Encrypt
+The encrypt method in the `EncryptUtil` class performs AES encryption on a given string and returns the encrypted result as a Base64-encoded string.
+`IV` is the initial Vector that acts a bit like a salt.
+```java
    public String encrypt(String data) {
       try {
          Cipher cipher = Cipher.getInstance(ALGORITHM);
@@ -51,7 +44,10 @@ public class EncryptUtil {
          throw new RuntimeException("Error while encrypting", e);
       }
    }
-
+```
+## Decrypt
+The job of this method is to decrypt secrets that got encrypted with the method above.
+```java
    public String decrypt(String data) {
       try {
          byte[] encryptedWithIv = Base64.getDecoder().decode(data);
@@ -71,4 +67,4 @@ public class EncryptUtil {
          throw new RuntimeException("Error while decrypting", e);
       }
    }
-}
+```
