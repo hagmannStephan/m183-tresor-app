@@ -35,8 +35,7 @@
               "title": "2 - Secret Encryption"
             }
           }
-        ],
-        "currentTab": 1
+        ]
       }
     ],
     "direction": "vertical"
@@ -93,8 +92,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 300,
-    "collapsed": true
+    "width": 300
   },
   "right": {
     "id": "dd7d341201c053f6",
@@ -184,10 +182,10 @@
       "command-palette:Open command palette": false
     }
   },
-  "active": "5292dbfbd1da0ec0",
+  "active": "6769773332c76114",
   "lastOpenFiles": [
-    "Tasks/1 - Password Hash.md",
     "Tasks/2 - Secret Encryption.md",
+    "Tasks/1 - Password Hash.md",
     "General.md",
     "Tasks",
     "Untitled.md",
