@@ -22,17 +22,24 @@ function NewCredential({loginValues}) {
     const handleSubmit = async (e) => {
         e.preventDefault();
         setErrorMessage('');
-        console.log(loginValues)
+        console.log(loginValues);
         try {
-            const content = credentialValues;
-            await postSecret({loginValues, content});
+            const newSecret = {
+                content: credentialValues,
+                kind: 'credential',
+                kindid: 1,
+                title: credentialValues.url || 'Credential', // or any user-defined title
+                email: loginValues.email,
+                encryptPassword: loginValues.encryptPassword
+            };
+            await postSecret(newSecret);
             setCredentialValues(initialState);
             navigate('/secret/secrets');
         } catch (error) {
             console.error('Failed to fetch to server:', error.message);
             setErrorMessage(error.message);
         }
-    };
+    };    
 
     return (
         <div>
