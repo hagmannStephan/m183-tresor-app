@@ -12,7 +12,6 @@ import java.util.Base64;
 /**
  * EncryptUtil
  * Used to encrypt content.
- * Not implemented yet.
  * @author Peter Rutschmann
  */
 public class EncryptUtil {
