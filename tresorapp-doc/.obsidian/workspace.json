@@ -50,7 +50,7 @@
             }
           }
         ],
-        "currentTab": 2
+        "currentTab": 1
       }
     ],
     "direction": "vertical"
@@ -197,12 +197,12 @@
       "command-palette:Open command palette": false
     }
   },
-  "active": "f0d053cd0f9c4c3b",
+  "active": "5292dbfbd1da0ec0",
   "lastOpenFiles": [
+    "Tasks/3 - Bughuntig.md",
     "Tasks/2 - Secret Encryption.md",
     "Untitled",
     "Assets/Pasted image 20250511184959.png",
-    "Tasks/3 - Bughuntig.md",
     "General.md",
     "Tasks/1 - Password Hash.md",
     "Tasks",
