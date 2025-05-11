@@ -17,3 +17,7 @@ Below i will list the methods of this class and explain in short what they do.
 4. Decrypt the data
 5. Return the decrypted data
 ## `SecretController.java`
+The endpoints were already written, and i just had to make sure that the correct functions get called.
+# Result
+Here is the encrypted string in the database, to proof that it works:
+![[Pasted image 20250511184959.png]]

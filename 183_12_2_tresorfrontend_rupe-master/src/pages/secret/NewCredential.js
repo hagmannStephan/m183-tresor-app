@@ -7,6 +7,7 @@ import {postSecret} from "../../comunication/FetchSecrets";
  * @author Peter Rutschmann
  */
 function NewCredential({loginValues}) {
+    console.log("Login values in NewCredential:", loginValues)
     const initialState = {
         kindid: 1,
         kind:"credential",
@@ -14,6 +15,7 @@ function NewCredential({loginValues}) {
         password: "",
         url: ""
     };
+    console.log("Initial state in NewCredential:", initialState)
     const [credentialValues, setCredentialValues] = useState(initialState);
     const [errorMessage, setErrorMessage] = useState('');
 
@@ -22,7 +24,6 @@ function NewCredential({loginValues}) {
     const handleSubmit = async (e) => {
         e.preventDefault();
         setErrorMessage('');
-        console.log(loginValues);
         try {
             const newSecret = {
                 content: credentialValues,
@@ -32,6 +33,7 @@ function NewCredential({loginValues}) {
                 email: loginValues.email,
                 encryptPassword: loginValues.encryptPassword
             };
+            console.log("FINAL: New secret in NewCredential:", newSecret)
             await postSecret(newSecret);
             setCredentialValues(initialState);
             navigate('/secret/secrets');
