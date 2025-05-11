@@ -4,14 +4,14 @@
  */
 
 //Post secret to server
-export const postSecret = async ({loginValues, content}) => {
+export const postSecret = async (newSecret) => {
     const protocol = process.env.REACT_APP_API_PROTOCOL; // "http"
     const host = process.env.REACT_APP_API_HOST; // "localhost"
     const port = process.env.REACT_APP_API_PORT; // "8080"
     const path = process.env.REACT_APP_API_PATH; // "/api"
     const portPart = port ? `:${port}` : ''; // port is optional
     const API_URL = `${protocol}://${host}${portPart}${path}`;
-    console.log(loginValues)
+    console.log("Login values in post Secret:", newSecret)
 
     try {
         const response = await fetch(`${API_URL}/secrets`, {
@@ -20,9 +20,9 @@ export const postSecret = async ({loginValues, content}) => {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({
-                email: loginValues.email,
-                encryptPassword: loginValues.password,
-                content: content
+                email: newSecret.email,
+                encryptPassword: 'password123!',
+                content: newSecret
             })
         });
 
