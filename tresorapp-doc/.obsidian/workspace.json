@@ -27,12 +27,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Tasks/2 - Secret Encryption.md",
+                "file": "General.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "2 - Secret Encryption"
+              "title": "General"
             }
           },
           {
@@ -199,7 +199,7 @@
   },
   "active": "5292dbfbd1da0ec0",
   "lastOpenFiles": [
-    "Tasks/3 - Bughuntig.md",
+    "Tasks/3 - Bug-hunting.md",
     "Tasks/2 - Secret Encryption.md",
     "Untitled",
     "Assets/Pasted image 20250511184959.png",
