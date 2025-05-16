@@ -6,13 +6,13 @@ import ch.bbw.pr.tresorbackend.model.LoginUser;
 import ch.bbw.pr.tresorbackend.model.RegisterUser;
 import ch.bbw.pr.tresorbackend.model.User;
 import ch.bbw.pr.tresorbackend.service.PasswordEncryptionService;
+import ch.bbw.pr.tresorbackend.service.PasswordValidationService;
 import ch.bbw.pr.tresorbackend.service.UserService;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import jakarta.validation.Valid;
-import lombok.AllArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,23 +29,26 @@ import java.util.stream.Collectors;
  * @author Peter Rutschmann
  */
 @RestController
-@AllArgsConstructor
 @RequestMapping("api/users")
 public class UserController {
 
    private UserService userService;
    private PasswordEncryptionService passwordService;
+   private PasswordValidationService passwordValidationService;
    private static final Logger logger = LoggerFactory.getLogger(UserController.class);
 
    @Autowired
-   public UserController(ConfigProperties configProperties, UserService userService,
-                         PasswordEncryptionService passwordService) {
+   public UserController(ConfigProperties configProperties, 
+                        UserService userService,
+                        PasswordEncryptionService passwordService,
+                        PasswordValidationService passwordValidationService) {
       System.out.println("UserController.UserController: cross origin: " + configProperties.getOrigin());
       // Logging in the constructor
       logger.info("UserController initialized: " + configProperties.getOrigin());
       logger.debug("UserController.UserController: Cross Origin Config: {}", configProperties.getOrigin());
       this.userService = userService;
       this.passwordService = passwordService;
+      this.passwordValidationService = passwordValidationService;
    }
 
    // build create User REST API
@@ -75,7 +78,19 @@ public class UserController {
       System.out.println("UserController.createUser: input validation passed");
 
       //password validation
-      //todo ergänzen
+      PasswordValidationService.ValidationResult validationResult = 
+          passwordValidationService.validatePassword(registerUser.getPassword());
+      
+      if (!validationResult.valid()) {
+          System.out.println("UserController.createUser: password validation failed");
+          JsonArray arr = new JsonArray();
+          validationResult.errors().forEach(arr::add);
+          JsonObject obj = new JsonObject();
+          obj.add("message", arr);
+          String json = new Gson().toJson(obj);
+          System.out.println("UserController.createUser, password validation fails: " + json);
+          return ResponseEntity.badRequest().body(json);
+      }
       System.out.println("UserController.createUser, password validation passed");
 
       //transform registerUser to user
