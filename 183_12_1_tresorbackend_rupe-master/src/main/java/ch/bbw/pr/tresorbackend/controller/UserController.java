@@ -5,6 +5,7 @@ import ch.bbw.pr.tresorbackend.model.EmailAdress;
 import ch.bbw.pr.tresorbackend.model.LoginUser;
 import ch.bbw.pr.tresorbackend.model.RegisterUser;
 import ch.bbw.pr.tresorbackend.model.User;
+import ch.bbw.pr.tresorbackend.service.CaptchaService;
 import ch.bbw.pr.tresorbackend.service.PasswordEncryptionService;
 import ch.bbw.pr.tresorbackend.service.PasswordValidationService;
 import ch.bbw.pr.tresorbackend.service.UserService;
@@ -51,11 +52,20 @@ public class UserController {
       this.passwordValidationService = passwordValidationService;
    }
 
+   @Autowired
+   private CaptchaService captchaService;
+
+
    // build create User REST API
    @PostMapping
    public ResponseEntity<String> createUser(@Valid @RequestBody RegisterUser registerUser, BindingResult bindingResult) {
-      //captcha
-      //todo ergänzen
+      if (!captchaService.verifyToken(registerUser.getCaptchaToken())) {
+         System.out.println("UserController.createUser: captcha failed");
+         JsonObject obj = new JsonObject();
+         obj.addProperty("message", "CAPTCHA verification failed");
+         String json = new Gson().toJson(obj);
+         return ResponseEntity.badRequest().body(json);
+      }
 
       System.out.println("UserController.createUser: captcha passed.");
 

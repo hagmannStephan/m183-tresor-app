@@ -11,7 +11,6 @@ export const postSecret = async (newSecret) => {
     const path = process.env.REACT_APP_API_PATH; // "/api"
     const portPart = port ? `:${port}` : ''; // port is optional
     const API_URL = `${protocol}://${host}${portPart}${path}`;
-    console.log("Login values in post Secret:", newSecret)
 
     try {
         const response = await fetch(`${API_URL}/secrets`, {
@@ -32,7 +31,6 @@ export const postSecret = async (newSecret) => {
         }
 
         const data = await response.json();
-        console.log('Secret successfully posted:', data);
         return data;
     } catch (error) {
         console.error('Error posting secret:', error.message);

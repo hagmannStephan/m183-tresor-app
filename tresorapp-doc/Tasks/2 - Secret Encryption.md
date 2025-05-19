@@ -7,7 +7,7 @@ Below i will list the methods of this class and explain in short what they do.
 2. Set the first 16 bytes as `secretKeySpec` (Attribute from the Class)
 ### `encrypt`
 1. Create a `Cipher` instance (Used to perform cryptographic operations)
-2. Generate an IV (Initialization Vector (Bit like a Salt for Hashing))
+2. Generate an IV (Initialization Vector (Bit like a Salt just for encryption instead of hashing))
 3. Encrypt the provided data with the secret key and IV
 4. Encode the encrypted Data in base 64 and return it
 ### decrypt

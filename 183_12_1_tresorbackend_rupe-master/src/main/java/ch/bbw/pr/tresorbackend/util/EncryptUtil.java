@@ -34,7 +34,7 @@ public class EncryptUtil {
       try {
          Cipher cipher = Cipher.getInstance(ALGORITHM);
          byte[] iv = new byte[IV_LENGTH];
-         new SecureRandom().nextBytes(iv); // generate random IV
+         new SecureRandom().nextBytes(iv); // generate random IV -> works a bit like a salt
          IvParameterSpec ivSpec = new IvParameterSpec(iv);
 
          cipher.init(Cipher.ENCRYPT_MODE, secretKeySpec, ivSpec);
