@@ -85,8 +85,9 @@ export const postUser = async (content) => {
                 lastName: content.lastName || '',
                 email: content.email || '',
                 password: content.password || '',
-                passwordConfirmation: content.passwordConfirmation || ''
-            })
+                passwordConfirmation: content.passwordConfirmation || '',
+                captchaToken: content.captchaToken || ''
+            })   
         });
 
         // Try to parse the response body as JSON

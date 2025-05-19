@@ -13,15 +13,30 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Tasks/2 - Secret Encryption.md",
+                "file": "Tasks/4 - Password Strength.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "2 - Secret Encryption"
+              "title": "4 - Password Strength"
+            }
+          },
+          {
+            "id": "e9b23eada99ec3d9",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "Tasks/5 - hCaptcha.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "5 - hCaptcha"
             }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "vertical"
@@ -168,13 +183,14 @@
       "command-palette:Open command palette": false
     }
   },
-  "active": "5292dbfbd1da0ec0",
+  "active": "7b54ccd8059ea620",
   "lastOpenFiles": [
     "Tasks/4 - Password Strength.md",
-    "Tasks/1 - Password Hash.md",
-    "Tasks/3 - Bug-hunting.md",
+    "Tasks/5 - hCaptcha.md",
     "General.md",
+    "Tasks/3 - Bug-hunting.md",
     "Tasks/2 - Secret Encryption.md",
+    "Tasks/1 - Password Hash.md",
     "Untitled",
     "Assets/Pasted image 20250511184959.png",
     "Tasks",

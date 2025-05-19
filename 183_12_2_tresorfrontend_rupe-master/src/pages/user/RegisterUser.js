@@ -1,13 +1,14 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { postUser } from "../../comunication/FetchUser";
-
+import HCaptcha from '@hcaptcha/react-hcaptcha';
 /**
  * RegisterUser
  * @author Peter Rutschmann
  */
 function RegisterUser({ loginValues, setLoginValues }) {
     const navigate = useNavigate();
+    const [captchaToken, setCaptchaToken] = useState(null);
 
     const initialState = {
         firstName: "",
@@ -30,8 +31,18 @@ function RegisterUser({ loginValues, setLoginValues }) {
             return;
         }
 
+        // Validate captcha
+        if (!captchaToken) {
+            setErrorMessages(['Please complete the CAPTCHA']);
+            return;
+        }
+
         try {
-            await postUser(credentials);
+            await postUser({
+                ...credentials,
+                captchaToken: captchaToken,
+            });
+
             setLoginValues({ userName: credentials.email, password: credentials.password });
             setCredentials(initialState);
             navigate('/');
@@ -117,6 +128,11 @@ function RegisterUser({ loginValues, setLoginValues }) {
                         </div>
                     </aside>
                 </section>
+                <HCaptcha
+                    sitekey="5176c652-5244-4da6-8f3c-7e3c62ae54bc"
+                    onVerify={setCaptchaToken}
+                    onExpire={() => setCaptchaToken(null)}
+                />
                 <button type="submit">Register</button>
                 {errorMessages.length > 0 && (
                     <div className="error-messages" style={{ color: 'red', marginTop: '1rem' }}>

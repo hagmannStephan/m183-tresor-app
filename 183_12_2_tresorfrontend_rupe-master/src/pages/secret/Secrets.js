@@ -20,7 +20,6 @@ const Secrets = ({ loginValues }) => {
             } else {
                 try {
                     const data = await getSecretsforUser(loginValues);
-                    console.log(data);
                     setSecrets(data);
                 } catch (error) {
                     console.error('Failed to fetch to server:', error.message);
