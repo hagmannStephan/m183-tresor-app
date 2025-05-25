@@ -44,7 +44,7 @@ public class PasswordResetServiceImpl implements PasswordResetService {
     }
 
     @Override
-    public void resetPassword(String token, String newPassword) {
+    public void resetPassword(String token, String password) {
         PasswordResetToken resetToken = tokenRepository.findByToken(token)
             .orElseThrow(() -> new RuntimeException("Invalid token"));
 
@@ -53,9 +53,9 @@ public class PasswordResetServiceImpl implements PasswordResetService {
         }
 
         User user = resetToken.getUser();
-        String hashedPassword = new BCryptPasswordEncoder().encode(newPassword);
+        String hashedPassword = new BCryptPasswordEncoder().encode(password);
 
-        // Save updated user
+        // Save updated userW
         userService.updatePassword(user.getId(), hashedPassword);
 
         // Invalidate token

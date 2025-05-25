@@ -274,7 +274,7 @@ public class UserController {
    @PostMapping("/reset-password")
    public ResponseEntity<?> resetPassword(@RequestBody ResetPasswordRequest request) {
       try {
-            passwordResetService.resetPassword(request.getToken(), request.getNewPassword());
+            passwordResetService.resetPassword(request.getToken(), request.getPassword());
             return ResponseEntity.ok("Password successfully reset");
       } catch (RuntimeException ex) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ex.getMessage());
