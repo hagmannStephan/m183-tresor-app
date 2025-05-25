@@ -4,6 +4,7 @@ import ch.bbw.pr.tresorbackend.model.ConfigProperties;
 import ch.bbw.pr.tresorbackend.model.EmailAdress;
 import ch.bbw.pr.tresorbackend.model.LoginUser;
 import ch.bbw.pr.tresorbackend.model.RegisterUser;
+import ch.bbw.pr.tresorbackend.model.ResetPasswordRequest;
 import ch.bbw.pr.tresorbackend.model.User;
 import ch.bbw.pr.tresorbackend.service.CaptchaService;
 import ch.bbw.pr.tresorbackend.service.PasswordEncryptionService;
@@ -268,5 +269,15 @@ public class UserController {
 
       passwordResetService.createPasswordResetToken(user);
       return ResponseEntity.ok("Password reset email sent");
+   }
+
+   @PostMapping("/reset-password")
+   public ResponseEntity<?> resetPassword(@RequestBody ResetPasswordRequest request) {
+      try {
+            passwordResetService.resetPassword(request.getToken(), request.getNewPassword());
+            return ResponseEntity.ok("Password successfully reset");
+      } catch (RuntimeException ex) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ex.getMessage());
+      }
    }
 }
