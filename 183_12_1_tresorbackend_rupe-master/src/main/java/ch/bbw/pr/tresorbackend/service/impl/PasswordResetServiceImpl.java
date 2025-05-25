@@ -1,7 +1,38 @@
 package ch.bbw.pr.tresorbackend.service.impl;
 
+import ch.bbw.pr.tresorbackend.model.PasswordResetToken;
+import ch.bbw.pr.tresorbackend.model.User;
+import ch.bbw.pr.tresorbackend.repository.PasswordResetTokenRepository;
+import ch.bbw.pr.tresorbackend.service.EmailService;
+import ch.bbw.pr.tresorbackend.service.PasswordResetService;
+import lombok.AllArgsConstructor;
+import org.springframework.stereotype.Service;
 
-public class PasswordResetServiceImpl {
+import java.time.LocalDateTime;
+import java.util.UUID;
 
+@Service
+@AllArgsConstructor
+public class PasswordResetServiceImpl implements PasswordResetService {
 
+    private PasswordResetTokenRepository tokenRepository;
+    private EmailService emailService;
+
+    @Override
+    public void createPasswordResetToken(User user) {
+        String token = UUID.randomUUID().toString();
+        LocalDateTime expiresAt = LocalDateTime.now().plusMinutes(15);
+
+        PasswordResetToken passwordResetToken = new PasswordResetToken();
+        passwordResetToken.setUser(user);
+        passwordResetToken.setToken(token);
+        passwordResetToken.setExpiresAt(expiresAt);
+
+        tokenRepository.save(passwordResetToken);
+
+        String resetLink = "https://your-frontend.com/reset-password?token=" + token;
+        String body = "Hi " + user.getFirstName() + ",\n\nClick this link to reset your password:\n" + resetLink;
+
+        emailService.sendEmail(user.getEmail(), "Reset your password", body);
+    }
 }
