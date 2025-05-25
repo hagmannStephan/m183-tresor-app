@@ -118,5 +118,3 @@ System.out.println("UserController.createUser: captcha passed.");
 ```application.properties
 hcaptcha.secret=<you-secret-generated-in-step-1>
 ```
----
-Now everything should work as expected. Test it out!
