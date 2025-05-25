@@ -7,6 +7,7 @@ import ch.bbw.pr.tresorbackend.model.RegisterUser;
 import ch.bbw.pr.tresorbackend.model.User;
 import ch.bbw.pr.tresorbackend.service.CaptchaService;
 import ch.bbw.pr.tresorbackend.service.PasswordEncryptionService;
+import ch.bbw.pr.tresorbackend.service.PasswordResetService;
 import ch.bbw.pr.tresorbackend.service.PasswordValidationService;
 import ch.bbw.pr.tresorbackend.service.UserService;
 
@@ -55,6 +56,8 @@ public class UserController {
    @Autowired
    private CaptchaService captchaService;
 
+   @Autowired
+   private PasswordResetService passwordResetService;
 
    // build create User REST API
    @PostMapping
@@ -254,5 +257,16 @@ public class UserController {
       String json = new Gson().toJson(obj);
       System.out.println("UserController.getUserIdByEmail " + json);
       return ResponseEntity.accepted().body(json);
+   }
+
+   @PostMapping("/request-password-reset")
+   public ResponseEntity<String> requestPasswordReset(@RequestBody EmailAdress email) {
+      User user = userService.findByEmail(email.getEmail());
+      if (user == null) {
+         return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found");
+      }
+
+      passwordResetService.createPasswordResetToken(user);
+      return ResponseEntity.ok("Password reset email sent");
    }
 }
