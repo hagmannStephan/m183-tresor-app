@@ -1,4 +1,6 @@
-# Figure out how to Connect via SMTP to Mail
+Checkout the implementation in [this Repo](https://github.com/hagmannStephan/m183-tresor-app/tree/main).
+# Prerequisites
+## Figure out how to Connect via SMTP to Mail
 I tested the connection with thunderbird and after a bit of tweaking it finally worked with the config like this:
 ![[Pasted image 20250519220107.png]]
 I want to set the password reset emails, with my new email `contact@stephanhagmann.ch`.
@@ -36,5 +38,13 @@ CREATE TABLE password_reset_token (
 ```
 2. Create the `PasswordResetTokenRepository`
 	1. Create the `PasswordResetToken.java`-Class . This defines how the token should look like.
-	2. Create the `PasswordResetTokenRepository.java`-Interface. It tells Spring how to access the database table. The interface lets you find, update and delete tokens without writing SQL-queries.
-	3. 
+	2. Create the `PasswordResetTokenRepository.java`-JPA-Interface. It tells Spring how to access the database table. The interface lets you find, update and delete tokens without writing SQL-queries.
+3. Add the `EmailService.java` and the `EmailServiceImpl.java` that lets you send a email with the body as a param.
+4. Add the `PasswordResetService.java` and the `PasswordResetServiceImpl.java` that lets you create a new token
+5. Add the endpoint to the `UserController` that calls the `PasswordResetService`. 
+   Make sure that also if the User doesn't get found also a **200 response gets send, so that hackers don't get a hint** (did not do it in this project for debugging).
+### 1.2.2 `POST: /reset-password`
+1. Create a DTO (Data Transfer Object -> an object just with getters/setters but without business logic, used to carry request or response data) for the `ResetPasswordRequest`
+2. Modify `PasswordResetService` and `PasswordResetServiceImpl` so that you can also reset the password
+3. In the `UserController` add the `/reset-password` endpoint with the correct calls to the service method.
+# 2. Frontend Modifications

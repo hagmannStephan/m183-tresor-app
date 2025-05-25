@@ -84,6 +84,19 @@ function LoginUser({loginValues, setLoginValues}) {
                     </aside>
                 </section>
                 <button type="submit">Login</button>
+                <button
+                onClick={() => navigate('/reset-password-request')}
+                style={{
+                    background: 'none',
+                    border: 'none',
+                    color: '#007bff',
+                    cursor: 'pointer',
+                    textDecoration: 'underline',
+                    padding: 0,
+                    fontSize: '0.9rem'
+                }}>
+                    Forgot Password?
+                </button>
             </form>
         </div>
     );
