@@ -6,6 +6,7 @@ import ch.bbw.pr.tresorbackend.repository.PasswordResetTokenRepository;
 import ch.bbw.pr.tresorbackend.service.EmailService;
 import ch.bbw.pr.tresorbackend.service.UserService;
 import ch.bbw.pr.tresorbackend.service.PasswordResetService;
+import ch.bbw.pr.tresorbackend.service.PasswordEncryptionService;
 import lombok.AllArgsConstructor;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +25,9 @@ public class PasswordResetServiceImpl implements PasswordResetService {
     
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private PasswordEncryptionService passwordEncryptionService;
 
     @Override
     public void createPasswordResetToken(User user) {
@@ -52,8 +56,10 @@ public class PasswordResetServiceImpl implements PasswordResetService {
             throw new RuntimeException("Token expired");
         }
 
+        // TODO: Validate password
+
         User user = resetToken.getUser();
-        String hashedPassword = new BCryptPasswordEncoder().encode(password);
+        String hashedPassword = passwordEncryptionService.hashPassword(password);
 
         // Save updated userW
         userService.updatePassword(user.getId(), hashedPassword);
