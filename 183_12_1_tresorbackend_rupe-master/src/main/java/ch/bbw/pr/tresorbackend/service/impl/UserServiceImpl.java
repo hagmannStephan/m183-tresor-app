@@ -52,6 +52,13 @@ public class UserServiceImpl implements UserService {
    }
 
    @Override
+   public User updatePassword(Long userId, String newPassword) {
+      User user = userRepository.findById(userId).orElseThrow(() -> new RuntimeException("User not found"));
+      user.setPassword(newPassword);
+      return userRepository.save(user);
+   }
+
+   @Override
    public void deleteUser(Long userId) {
       userRepository.deleteById(userId);
    }
