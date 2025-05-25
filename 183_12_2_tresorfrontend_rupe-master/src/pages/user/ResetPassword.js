@@ -21,44 +21,55 @@ function ResetPassword() {
     e.preventDefault();
     setMessage('');
     setError('');
-
+    
     try {
       const response = await fetch('http://localhost:8080/api/users/reset-password', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ token, password }),
       });
-
+      
       if (response.ok) {
         setMessage('Your password was successfully reset.');
         setPassword('');
       } else {
-        setError('Token is invalid or expired.');
+        // Always try to get the server response, regardless of format
+        const responseText = await response.text();
+        setError(responseText || `Error ${response.status}: ${response.statusText}`);
       }
     } catch (err) {
-      setError('Something went wrong. Please try again.');
+      // Only show generic error for actual network/connection issues
+      setError(`Network error: ${err.message}`);
     }
   };
+
+  // Don't render the form if there's no token (URL error)
+  if (error === 'No token provided in URL.') {
+    return (
+      <div>
+        <h2>Set New Password</h2>
+        <p style={{ color: 'red' }}>{error}</p>
+      </div>
+    );
+  }
 
   return (
     <div>
       <h2>Set New Password</h2>
       {error && <p style={{ color: 'red' }}>{error}</p>}
-      {!error && (
-        <form onSubmit={handleSubmit}>
-          <label>
-            New Password:
-            <input
-              type="password"
-              required
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-            />
-          </label>
-          <br />
-          <button type="submit">Reset Password</button>
-        </form>
-      )}
+      <form onSubmit={handleSubmit}>
+        <label>
+          New Password:
+          <input
+            type="password"
+            required
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
+        </label>
+        <br />
+        <button type="submit">Reset Password</button>
+      </form>
       {message && <p style={{ color: 'green' }}>{message}</p>}
     </div>
   );

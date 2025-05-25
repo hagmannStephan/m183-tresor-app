@@ -44,5 +44,3 @@ INSERT INTO secret (`user_id`, `content`) VALUES
     (1, '{"kindid":1,"kind":"credential","userName":"muster","password":"1234","url":"www.bbw.ch"}'),
     (1, '{"kindid":2,"kind":"creditcard","cardtype":"Visa","cardnumber":"4242 4242 4242 4241","expiration":"12/27","cvv":"789"}'),
     (1, '{"kindid":3,"kind":"note","title":"Eragon","content":"Und Eragon ging auf den Drachen zu."}');
-
-SELECT * FROM user WHERE email = 'stephanhagmann@outlook.com'

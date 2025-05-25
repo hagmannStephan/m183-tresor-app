@@ -6,12 +6,16 @@ import ch.bbw.pr.tresorbackend.repository.PasswordResetTokenRepository;
 import ch.bbw.pr.tresorbackend.service.EmailService;
 import ch.bbw.pr.tresorbackend.service.UserService;
 import ch.bbw.pr.tresorbackend.service.PasswordResetService;
+import ch.bbw.pr.tresorbackend.service.PasswordValidationService;
 import ch.bbw.pr.tresorbackend.service.PasswordEncryptionService;
+import ch.bbw.pr.tresorbackend.service.PasswordResetService;
 import lombok.AllArgsConstructor;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.time.LocalDateTime;
 import java.util.UUID;
@@ -28,6 +32,9 @@ public class PasswordResetServiceImpl implements PasswordResetService {
 
     @Autowired
     private PasswordEncryptionService passwordEncryptionService;
+
+    @Autowired
+    private PasswordValidationService passwordValidationService;
 
     @Override
     public void createPasswordResetToken(User user) {
@@ -56,7 +63,14 @@ public class PasswordResetServiceImpl implements PasswordResetService {
             throw new RuntimeException("Token expired");
         }
 
-        // TODO: Validate password
+        // Validate password
+        PasswordValidationService.ValidationResult result = passwordValidationService.validatePassword(password);
+        if (!result.valid()) {
+            throw new ResponseStatusException(
+                HttpStatus.BAD_REQUEST,
+                String.join("; ", result.errors())
+            );
+        }
 
         User user = resetToken.getUser();
         String hashedPassword = passwordEncryptionService.hashPassword(password);
