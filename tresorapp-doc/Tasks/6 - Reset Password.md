@@ -48,3 +48,11 @@ CREATE TABLE password_reset_token (
 2. Modify `PasswordResetService` and `PasswordResetServiceImpl` so that you can also reset the password
 3. In the `UserController` add the `/reset-password` endpoint with the correct calls to the service method.
 # 2. Frontend Modifications
+1. Add `ResetPasswordRequest.js` in the Frontend, where the user can enter his email if the user forgot the password. Also add a link to login that redirects to this page:
+	- Form with email input.
+    - Sends POST /password-reset-request.
+2. Add a `ResetPassword.js` in the Frontend that lets you reset the password. Does the following:
+	- Accessed via link from email.
+	- Reads token from ?token=... in the URL.
+	- Shows new password form.
+	- Sends POST /reset-password with token + password.
