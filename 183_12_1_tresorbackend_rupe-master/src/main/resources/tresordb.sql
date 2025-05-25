@@ -30,11 +30,14 @@ CREATE TABLE secret (
 -- Table: Password Reset Token
 -- Used to store the token for password reset if requested by user
 CREATE TABLE password_reset_token (
-    token VARCHAR(255) PRIMARY KEY,
-    user_id int NOT NULL,
-    expiration TIMESTAMP NOT NULL,
-    FOREIGN KEY (user_id) REFERENCES `user`(id) ON DELETE CASCADE
+    id INT NOT NULL AUTO_INCREMENT,
+    user_id INT NOT NULL,
+    token VARCHAR(255) NOT NULL UNIQUE,
+    expires_at TIMESTAMP NOT NULL,
+    PRIMARY KEY (id),
+    FOREIGN KEY (user_id) REFERENCES user(id) ON DELETE CASCADE
 ) ENGINE=InnoDB;
+
 
 -- Initial secret data
 INSERT INTO secret (`user_id`, `content`) VALUES
