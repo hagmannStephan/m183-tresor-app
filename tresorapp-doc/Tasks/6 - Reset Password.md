@@ -23,3 +23,18 @@ spring.mail.properties.mail.smtp.ssl.trust=mail.infomaniak.com
 ```
 ## 1.2. Add API Endpoints
 ### 1.2.1. `POST: /password-reset-request`
+1. I added the table `password_reset_token` to the DB, here the tokens for the password reset get stored, if a user requests a password reset
+```sql
+-- Table: Password Reset Token
+-- Used to store the token for password reset if requested by user
+CREATE TABLE password_reset_token (
+    token VARCHAR(255) PRIMARY KEY,
+    user_id int NOT NULL,
+    expiration TIMESTAMP NOT NULL,
+    FOREIGN KEY (user_id) REFERENCES `user`(id) ON DELETE CASCADE
+) ENGINE=InnoDB;
+```
+2. Create the `PasswordResetTokenRepository`
+	1. Create the `PasswordResetToken.java`-Class . This defines how the token should look like.
+	2. Create the `PasswordResetTokenRepository.java`-Interface. It tells Spring how to access the database table. The interface lets you find, update and delete tokens without writing SQL-queries.
+	3. 
