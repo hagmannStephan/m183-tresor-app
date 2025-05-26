@@ -49,9 +49,8 @@ public class PasswordResetServiceImpl implements PasswordResetService {
         tokenRepository.save(passwordResetToken);
 
         String resetLink = "http://localhost:3000/reset-password?token=" + token;
-        String body = "Hi " + user.getFirstName() + ",\n\nClick this link to reset your password:\n" + resetLink;
 
-        emailService.sendEmail(user.getEmail(), "Reset your password", body);
+        emailService.sendPasswordResetEmail(user.getEmail(), user.getFirstName(), resetLink);
     }
 
     @Override
