@@ -4,11 +4,11 @@ DROP TABLE IF EXISTS secret;
 DROP TABLE IF EXISTS `user`;
 
 CREATE TABLE `user` (
-    id int NOT NULL AUTO_INCREMENT,
-    first_name varchar(30) NOT NULL,
-    last_name varchar(30) NOT NULL,
-    email varchar(30) NOT NULL,
-    password longtext NOT NULL,
+    id BIGINT NOT NULL AUTO_INCREMENT,
+    first_name VARCHAR(30) NOT NULL,
+    last_name VARCHAR(30) NOT NULL,
+    email VARCHAR(30) NOT NULL,
+    password LONGTEXT NOT NULL,
     PRIMARY KEY (id)
 ) ENGINE=InnoDB;
 
@@ -20,8 +20,8 @@ INSERT INTO `user` (`first_name`, `last_name`, `email`, `password`) VALUES
 
 -- Table: secret
 CREATE TABLE secret (
-    id int NOT NULL AUTO_INCREMENT,
-    user_id int NOT NULL,
+    id BIGINT NOT NULL AUTO_INCREMENT,
+    user_id BIGINT NOT NULL,
     content LONGTEXT NOT NULL,
     PRIMARY KEY (id),
     FOREIGN KEY (user_id) REFERENCES `user`(id) ON DELETE CASCADE
@@ -30,14 +30,13 @@ CREATE TABLE secret (
 -- Table: Password Reset Token
 -- Used to store the token for password reset if requested by user
 CREATE TABLE password_reset_token (
-    id INT NOT NULL AUTO_INCREMENT,
-    user_id INT NOT NULL,
+    id BIGINT NOT NULL AUTO_INCREMENT,
+    user_id BIGINT NOT NULL,
     token VARCHAR(255) NOT NULL UNIQUE,
     expires_at TIMESTAMP NOT NULL,
     PRIMARY KEY (id),
-    FOREIGN KEY (user_id) REFERENCES user(id) ON DELETE CASCADE
+    FOREIGN KEY (user_id) REFERENCES `user`(id) ON DELETE CASCADE
 ) ENGINE=InnoDB;
-
 
 -- Initial secret data
 INSERT INTO secret (`user_id`, `content`) VALUES

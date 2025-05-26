@@ -39,7 +39,7 @@ public class EmailServiceImpl implements EmailService {
     }
     
     private String createPasswordResetTemplate(String firstName, String resetLink) {
-        return """
+    return """
             <!DOCTYPE html>
             <html lang="en">
             <head>
@@ -124,7 +124,8 @@ public class EmailServiceImpl implements EmailService {
                         word-break: break-all;
                         color: #3498db;
                         font-size: 14px;
-                        margin-top: 15px;
+                        margin-top: -5px;
+                        margin-bottom: 25px;
                     }
                 </style>
             </head>
