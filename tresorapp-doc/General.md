@@ -1,5 +1,5 @@
 You can find the Repo for the App right [here](https://github.com/hagmannStephan/m183-tresor-app).
-The lection plan can be found [here](https://bbw-it.github.io/183_main_rupe/03_Drehbuch/Drehbuch_Modul_183_FS25_22d_PR/).
+The lesson plan can be found [here](https://bbw-it.github.io/183_main_rupe/03_Drehbuch/Drehbuch_Modul_183_FS25_22d_PR/).
 # Start App
 ## Start Frontend
 1. Open a Terminal in the frontend project
