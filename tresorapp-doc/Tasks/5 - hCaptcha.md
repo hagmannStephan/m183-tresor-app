@@ -118,3 +118,6 @@ System.out.println("UserController.createUser: captcha passed.");
 ```application.properties
 hcaptcha.secret=<you-secret-generated-in-step-1>
 ```
+# Sequence Diagram
+If you want to checkout the register process, look at the diagram in this file [[1 - Password Hash]]. Here you can learn about the process of creating and validating a `hCaptcha`-Token:
+![[Pasted image 20250531211626.png]]

@@ -21,3 +21,8 @@ The endpoints were already written, and i just had to make sure that the correct
 # Result
 Here is the encrypted string in the database, to proof that it works:
 ![[Pasted image 20250511184959.png]]
+# Sequence Diagram
+## Encryption
+![[Pasted image 20250531203843.png]]
+## Decryption
+![[Pasted image 20250531210516.png]]

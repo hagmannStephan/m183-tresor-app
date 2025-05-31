@@ -59,3 +59,8 @@ CREATE TABLE password_reset_token (
 	- Reads token from ?token=... in the URL.
 	- Shows new password form.
 	- Sends POST /reset-password with token + password.
+# Sequence Diagram
+## Request Reset Password
+![[Pasted image 20250531215213.png]]
+## Reset Password
+![[Pasted image 20250531221424.png]]

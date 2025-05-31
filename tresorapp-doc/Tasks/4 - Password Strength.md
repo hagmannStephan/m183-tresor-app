@@ -12,3 +12,5 @@
 4. Firstly I added the File `PasswordValidationService.java` that checks if a password meets the requirements
 5. Secondly I updated the `UserController.java` to use the new Service.
 6. Lastly, i updated the `RegisterUser.js` file to display proper errors, if the password doesn't meet the requirements
+# Sequence Diagram
+Already modeled in the Sequence Diagram in [[1 - Password Hash]].
