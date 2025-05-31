@@ -25,3 +25,11 @@ I will list the relevant methods of this class below and explain what they do. T
 The function gets called as soon as the user wants to log in. The functionality is as you would expect (sends the email and password to the login endpoint in the API)
 ## `RegisterUser.js`
 Similar to `LoginUser.js` but also sends first name and last name. Afterwards a post request with this data gets sent to the register endpoint.
+
+# Sequence Diagrams
+**Small hint**: The bars on the lines below the actors indicate a method call.
+## Register
+![[Pasted image 20250531200901.png]]
+
+## Login
+![[Pasted image 20250531201806.png]]
