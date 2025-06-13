@@ -7,7 +7,7 @@ CREATE TABLE `user` (
     id BIGINT NOT NULL AUTO_INCREMENT,
     first_name VARCHAR(30) NOT NULL,
     last_name VARCHAR(30) NOT NULL,
-    email VARCHAR(30) NOT NULL,
+    email VARCHAR(30) NOT NULL UNIQUE,
     password LONGTEXT NOT NULL,
     PRIMARY KEY (id)
 ) ENGINE=InnoDB;
