@@ -113,7 +113,8 @@ public class UserController {
             registerUser.getFirstName(),
             registerUser.getLastName(),
             registerUser.getEmail(),
-            passwordService.hashPassword(registerUser.getPassword())
+            passwordService.hashPassword(registerUser.getPassword()),
+            User.Role.USER
             );
 
       User savedUser = userService.createUser(user);

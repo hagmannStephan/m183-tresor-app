@@ -9,6 +9,7 @@ CREATE TABLE `user` (
     last_name VARCHAR(30) NOT NULL,
     email VARCHAR(30) NOT NULL UNIQUE,
     password LONGTEXT NOT NULL,
+    role ENUM('ADMIN', 'USER') NOT NULL DEFAULT 'USER',
     PRIMARY KEY (id)
 ) ENGINE=InnoDB;
 

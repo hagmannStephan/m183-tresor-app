@@ -15,12 +15,13 @@ public class JwtUtil {
     private final Key key = Keys.hmacShaKeyFor(new byte[32]); // 256-bit key for HS256
     private final long expirationMs = 86400000; // 24 hours
 
-    public String generateToken(String subject) {
+    public String generateToken(String subject, String role) {
         Date now = new Date();
         Date expiryDate = new Date(now.getTime() + expirationMs);
         
         return Jwts.builder()
                 .subject(subject)
+                .claim("role", role)
                 .issuedAt(now)
                 .expiration(expiryDate)
                 .signWith(key)
@@ -45,5 +46,9 @@ public class JwtUtil {
                 .verifyWith((SecretKey) key)
                 .build()
                 .parseSignedClaims(token);
+    }
+
+    public String extractRole(String token) {
+        return parseClaims(token).getPayload().get("role", String.class);
     }
 }
