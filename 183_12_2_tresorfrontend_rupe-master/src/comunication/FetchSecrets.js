@@ -16,7 +16,7 @@ export const postSecret = async (newSecret) => {
         const response = await fetch(`${API_URL}/secrets`, {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
             },
             body: JSON.stringify({
                 email: newSecret.email,
@@ -67,7 +67,8 @@ export const getSecretsforUser = async (loginValues) => {
         const response = await fetch(`${API_URL}/secrets/byemail`, {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${localStorage.getItem('token')}`
             },
             body: JSON.stringify(requestBody)
         });
