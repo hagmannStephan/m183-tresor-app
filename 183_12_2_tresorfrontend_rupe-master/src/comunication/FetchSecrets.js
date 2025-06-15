@@ -16,11 +16,12 @@ export const postSecret = async (newSecret) => {
         const response = await fetch(`${API_URL}/secrets`, {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${localStorage.getItem('token')}`
             },
             body: JSON.stringify({
                 email: newSecret.email,
-                encryptPassword: 'password123!',        // TODO: Not very safe, but wip so ok for now
+                encryptPassword: localStorage.getItem('password'),
                 content: newSecret
             })
         });
@@ -49,25 +50,24 @@ export const getSecretsforUser = async (loginValues) => {
     
     console.log("Attempting to fetch secrets with credentials:", {
         email: loginValues.email,
-        // Not showing password for security
     });
     
     try {
         // Use the same encryption password that was used when creating secrets
         const requestBody = {
             email: loginValues.email,
-            encryptPassword: 'password123!'  // TODO: Not very safe, but wip so ok for now
+            encryptPassword: loginValues.password
         };
         
         console.log("Sending request body:", {
             email: requestBody.email,
-            // Not showing password for security
         });
         
         const response = await fetch(`${API_URL}/secrets/byemail`, {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${localStorage.getItem('token')}`
             },
             body: JSON.stringify(requestBody)
         });
