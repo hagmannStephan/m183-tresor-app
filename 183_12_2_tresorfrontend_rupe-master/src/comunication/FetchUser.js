@@ -28,7 +28,8 @@ export const getUsers = async () => {
         const response = await fetch(`${API_URL}/users`, {
             method: 'GET',
             headers: {
-                'Accept': 'application/json'
+                'Accept': 'application/json',
+                'Authorization': `Bearer ${localStorage.getItem('token')}`
             }
         });
 

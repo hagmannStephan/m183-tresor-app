@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Tasks/7 - Authentication und Autorisation/1 - Getting Started.md",
+                "file": "Tasks/7 - Authentication und Autorisation/2 - Implementation JWT.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "1 - Getting Started"
+              "title": "2 - Implementation JWT"
             }
           },
           {
@@ -27,16 +27,15 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Tasks/7 - Authentication und Autorisation/2 - Implementation.md",
+                "file": "Tasks/8 - SSO/1- Getting Started.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "2 - Implementation"
+              "title": "1- Getting Started"
             }
           }
-        ],
-        "currentTab": 1
+        ]
       }
     ],
     "direction": "vertical"
@@ -183,11 +182,11 @@
       "command-palette:Open command palette": false
     }
   },
-  "active": "5c8c66b7930a51cc",
+  "active": "3a4745bad1414d9e",
   "lastOpenFiles": [
     "Tasks/7 - Authentication und Autorisation/1 - Getting Started.md",
-    "Tasks/7 - Authentication und Autorisation/2 - Implementation.md",
     "Tasks/8 - SSO/1- Getting Started.md",
+    "Tasks/7 - Authentication und Autorisation/2 - Implementation JWT.md",
     "Tasks/1 - Password Hash.md",
     "Tasks/8 - SSO",
     "Tasks/7 - Authentication und Autorisation",

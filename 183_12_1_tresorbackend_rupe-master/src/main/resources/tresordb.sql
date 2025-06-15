@@ -19,6 +19,9 @@ INSERT INTO `user` (`first_name`, `last_name`, `email`, `password`) VALUES
 ('Paula', 'Kuster', 'paula.kuster@bbw.ch', 'efgh'),
 ('Andrea', 'Oester', 'andrea.oester@bbw.ch', 'ijkl');
 
+-- To create an admin
+-- UPDATE `user` SET role = 'ADMIN' WHERE email = 'alfred@escher.ch';
+
 -- Table: secret
 CREATE TABLE secret (
     id BIGINT NOT NULL AUTO_INCREMENT,

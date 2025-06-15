@@ -8,6 +8,7 @@
 - Es sind abhängig von den Rollen unterschiedliche Zugriffe möglich
 ## Zusatzaufgabe
 - Multi Factor Authentication
+- OAuth
 # Ablauf
 1. Basic Auth umsetzen (Autorisation) mit in Memory User in Security Config
 2. Basic Auth mit DB User umsetzen
