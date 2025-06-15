@@ -8,12 +8,10 @@ import ch.bbw.pr.tresorbackend.service.UserService;
 import ch.bbw.pr.tresorbackend.service.PasswordResetService;
 import ch.bbw.pr.tresorbackend.service.PasswordValidationService;
 import ch.bbw.pr.tresorbackend.service.PasswordEncryptionService;
-import ch.bbw.pr.tresorbackend.service.PasswordResetService;
 import lombok.AllArgsConstructor;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 

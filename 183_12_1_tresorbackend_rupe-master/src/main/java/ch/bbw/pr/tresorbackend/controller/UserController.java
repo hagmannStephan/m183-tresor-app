@@ -11,6 +11,7 @@ import ch.bbw.pr.tresorbackend.service.PasswordEncryptionService;
 import ch.bbw.pr.tresorbackend.service.PasswordResetService;
 import ch.bbw.pr.tresorbackend.service.PasswordValidationService;
 import ch.bbw.pr.tresorbackend.service.UserService;
+import ch.bbw.pr.tresorbackend.util.JwtUtil;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
@@ -39,12 +40,14 @@ public class UserController {
    private PasswordEncryptionService passwordService;
    private PasswordValidationService passwordValidationService;
    private static final Logger logger = LoggerFactory.getLogger(UserController.class);
+   private final JwtUtil jwtUtil;
 
    @Autowired
    public UserController(ConfigProperties configProperties, 
                         UserService userService,
                         PasswordEncryptionService passwordService,
-                        PasswordValidationService passwordValidationService) {
+                        PasswordValidationService passwordValidationService,
+                        JwtUtil jwtUtil) {
       System.out.println("UserController.UserController: cross origin: " + configProperties.getOrigin());
       // Logging in the constructor
       logger.info("UserController initialized: " + configProperties.getOrigin());
@@ -52,6 +55,7 @@ public class UserController {
       this.userService = userService;
       this.passwordService = passwordService;
       this.passwordValidationService = passwordValidationService;
+      this.jwtUtil = jwtUtil;
    }
 
    @Autowired
@@ -173,14 +177,17 @@ public class UserController {
       
       // Login successful
       logger.info("UserController.doLoginUser: Login successful for user ID: {}", user.getId());
-      
+
+      String token = jwtUtil.generateToken(user.getEmail(), user.getRole().name());
+
       JsonObject obj = new JsonObject();
+      obj.addProperty("token", token);
       obj.addProperty("userId", user.getId());
       obj.addProperty("firstName", user.getFirstName());
       obj.addProperty("lastName", user.getLastName());
       obj.addProperty("email", user.getEmail());
-      String json = new Gson().toJson(obj);
       
+      String json = new Gson().toJson(obj);
       return ResponseEntity.ok().body(json);
    }
 

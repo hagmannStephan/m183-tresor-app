@@ -34,6 +34,8 @@ function LoginUser({loginValues, setLoginValues}) {
                 // Store user data in localStorage or sessionStorage for persistence
                 localStorage.setItem('userId', data.userId);
                 localStorage.setItem('userEmail', data.email);
+                localStorage.setItem('token', data.token);
+                localStorage.setItem('password', loginValues.password); // Really not safe, but instructions say to do so
                 localStorage.setItem('isLoggedIn', 'true');
                 
                 // Navigate to home page or dashboard
