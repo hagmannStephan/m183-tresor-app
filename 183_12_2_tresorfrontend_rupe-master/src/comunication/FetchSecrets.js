@@ -49,19 +49,17 @@ export const getSecretsforUser = async (loginValues) => {
     
     console.log("Attempting to fetch secrets with credentials:", {
         email: loginValues.email,
-        // Not showing password for security
     });
     
     try {
         // Use the same encryption password that was used when creating secrets
         const requestBody = {
             email: loginValues.email,
-            encryptPassword: loginValues.password  // TODO: Not very safe, but wip so ok for now
+            encryptPassword: loginValues.password
         };
         
         console.log("Sending request body:", {
             email: requestBody.email,
-            // Not showing password for security
         });
         
         const response = await fetch(`${API_URL}/secrets/byemail`, {
