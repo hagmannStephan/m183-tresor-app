@@ -11,14 +11,10 @@
             "id": "5c8c66b7930a51cc",
             "type": "leaf",
             "state": {
-              "type": "markdown",
-              "state": {
-                "file": "Tasks/8 - SSO/1 - Implementation.md",
-                "mode": "source",
-                "source": false
-              },
+              "type": "empty",
+              "state": {},
               "icon": "lucide-file",
-              "title": "1 - Implementation"
+              "title": "New tab"
             }
           }
         ]
@@ -170,8 +166,8 @@
   },
   "active": "5c8c66b7930a51cc",
   "lastOpenFiles": [
-    "Tasks/7 - Authentication und Autorisation/3 - MFA.md",
     "Tasks/8 - SSO/1 - Implementation.md",
+    "Tasks/7 - Authentication und Autorisation/3 - MFA.md",
     "Tasks/7 - Authentication und Autorisation/1 - Getting Started.md",
     "Tasks/7 - Authentication und Autorisation/2 - Implementation JWT.md",
     "Tasks/8 - SSO/1- Getting Started.md",
