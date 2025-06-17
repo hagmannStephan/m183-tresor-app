@@ -14,6 +14,7 @@ import NewCreditCard from "./pages/secret/NewCreditCard";
 import NewNote from "./pages/secret/NewNote";
 import ResetPasswordRequest from "./pages/user/ResetPasswordRequest";
 import ResetPassword from "./pages/user/ResetPassword";
+import OAuth2RedirectHandler from "./pages/user/OAuth2RedirectHandler";
 
 /**
  * App
@@ -39,6 +40,8 @@ function App() {
                     <Route path="/reset-password-request" element={<ResetPasswordRequest/>}/>
                     <Route path="/reset-password" element={<ResetPassword />} />
                     <Route path="*" element={<NoPage/>}/>
+                    <Route path="/oauth2/redirect" element={<OAuth2RedirectHandler setLoginValues={setLoginValues}/>} />
+
                 </Route>
             </Routes>
         </BrowserRouter>

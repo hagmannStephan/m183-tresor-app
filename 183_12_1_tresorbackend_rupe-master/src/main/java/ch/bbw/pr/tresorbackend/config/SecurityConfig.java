@@ -28,6 +28,8 @@ public SecurityFilterChain filterChain(HttpSecurity http, JwtAuthFilterImpl jwtA
                                        CustomOAuth2UserServiceImpl oAuth2UserService,
                                        CustomOAuth2SuccessHandlerImpl oAuth2SuccessHandler) throws Exception {
     http
+        // Not good for production, but oke for development
+        // Should allow URLs like oAuth2/**
         .csrf(csrf -> csrf.disable())
         .authorizeHttpRequests(auth -> auth
             .requestMatchers("/", "/api/users/login", "/api/users/register", "/oauth2/**", "/login/**").permitAll()

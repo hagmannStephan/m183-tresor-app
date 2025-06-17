@@ -10,11 +10,12 @@ import org.springframework.stereotype.Component;
 import ch.bbw.pr.tresorbackend.repository.UserRepository;
 import ch.bbw.pr.tresorbackend.util.JwtUtil;
 import ch.bbw.pr.tresorbackend.model.User;
-
+import org.springframework.web.util.UriComponentsBuilder;
 import java.io.IOException;
 
 @Component
 public class CustomOAuth2SuccessHandlerImpl implements AuthenticationSuccessHandler {
+
     private final JwtUtil jwtUtil;
     private final UserRepository userRepository;
 
@@ -28,22 +29,37 @@ public class CustomOAuth2SuccessHandlerImpl implements AuthenticationSuccessHand
                                         HttpServletResponse response,
                                         Authentication authentication)
             throws IOException, ServletException {
-
-        // Extract authenticated user
+        
         var principal = (DefaultOAuth2User) authentication.getPrincipal();
         String email = principal.getAttribute("email");
-
-        // Get user from DB
+        String name = principal.getAttribute("name");
+        String googleId = principal.getAttribute("sub"); // Google's unique user ID
+        
+        // Find existing user or create new one
         User user = userRepository.findByEmail(email)
-                .orElseThrow(() -> new RuntimeException("User not found"));
-
-        // Generate JWT
+                .orElseGet(() -> createNewUser(email, name, googleId));
+        
         String jwt = jwtUtil.generateToken(user.getEmail(), user.getRole().name());
-
-        // Return JWT in JSON response (or header)
-        response.setContentType("application/json");
-        response.setCharacterEncoding("UTF-8");
-        response.getWriter().write("{\"token\": \"" + jwt + "\"}");
+        
+        String redirectUrl = UriComponentsBuilder
+                .fromUriString("http://localhost:3000/oauth2/redirect")
+                .queryParam("token", jwt)
+                .queryParam("email", user.getEmail())
+                .queryParam("userId", user.getId())
+                .queryParam("password", user.getPassword()) // Not optimal, but ok for test app
+                .build().toUriString();
+        
+        response.sendRedirect(redirectUrl);
+    }
+    
+    private User createNewUser(String email, String name, String googleId) {
+        User newUser = new User();
+        newUser.setEmail(email);
+        newUser.setFirstName(name); // Not optimal, but ok for test app
+        newUser.setLastName(name);
+        newUser.setPassword(googleId); // Use Google ID as password placeholder (workaround'ish)
+        newUser.setRole(User.Role.USER); // default role
+        
+        return userRepository.save(newUser);
     }
 }
-
