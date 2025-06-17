@@ -1,16 +1,28 @@
-# TresorApp
-I wrote the documentation in the folder `tresorapp-doc` with Obsidian. It is mostly Markdown compatible so you can also check it out with VSC or similar.
 
-However if you want to download Obsidian, it is a free [App](https://obsidian.md/), that I really like to use for documentations.
+🔐 TresorApp – School Project from M183
+📘 Documentation
 
-## Overview
+The complete documentation is available in the tresorapp-doc folder. It’s written in Markdown using Obsidian, a free knowledge management app.
 
-To make the app safer, I implemented the following features:
-- Password hashing
-- User data encryption
-- Captcha on sign-up
-- Minimum password strength requirements
-- Password reset via email
-- Authorization and authentication via JWT token
-- OAuth (Sign up via a third party such as Google)
-- MFA (Multi-Factor Authentication)
+    💡 You don’t need Obsidian to view the docs – any Markdown-friendly editor (like VS Code) will do. But if you're into clean note-taking and linking ideas, I highly recommend trying it out!
+
+🔎 Key Security Features
+
+To protect your data, TresorApp includes a range of security measures:
+
+    ✅ Password hashing – your password is never stored in plain text
+
+    🔐 Encryption of user data – sensitive information is encrypted at rest
+
+    🤖 CAPTCHA on sign-up – defends against bots and spam
+
+    📏 Password strength checks – ensures users pick strong, secure passwords
+
+    ✉️ Password reset via email – easy and secure recovery process
+
+    🛡️ JWT-based authentication – secure token-based login
+
+    🌐 OAuth support – log in via trusted providers (like Google)
+
+    🔑 Multi-Factor Authentication (MFA) – adds a second layer of protection
+
