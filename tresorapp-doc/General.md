@@ -19,4 +19,4 @@ The lesson plan can be found [here](https://bbw-it.github.io/183_main_rupe/03_Dr
 5. `Save`
 6. Open the file `tresordb.sql` in the `resources` Folder and press the Execute button at the top right side
 ## Check if everything worked
-Open the URL [http://localhost:3000/user/users](http://localhost:3000/user/users) and check if you can see User Entries.
+Open the URL [http://localhost:3000/user/users](http://localhost:3000/user/users) and check if you can see User Entries (doesn't work any more in the current version of the app).
