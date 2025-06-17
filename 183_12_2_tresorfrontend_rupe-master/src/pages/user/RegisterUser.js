@@ -38,14 +38,14 @@ function RegisterUser({ loginValues, setLoginValues }) {
         }
 
         try {
-            await postUser({
+            const result = await postUser({
                 ...credentials,
                 captchaToken: captchaToken,
             });
 
             setLoginValues({ userName: credentials.email, password: credentials.password });
             setCredentials(initialState);
-            navigate('/');
+            navigate(`/setup-mfa?totpUri=${encodeURIComponent(result.totpUri)}`);
         } catch (error) {
             console.error('Failed to fetch to server:', error);
             
