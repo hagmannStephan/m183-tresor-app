@@ -11,6 +11,7 @@ import ch.bbw.pr.tresorbackend.service.PasswordEncryptionService;
 import ch.bbw.pr.tresorbackend.service.PasswordResetService;
 import ch.bbw.pr.tresorbackend.service.PasswordValidationService;
 import ch.bbw.pr.tresorbackend.service.UserService;
+import ch.bbw.pr.tresorbackend.service.impl.TOTPSecretGenerator;
 import ch.bbw.pr.tresorbackend.util.JwtUtil;
 
 import com.google.gson.Gson;
@@ -118,13 +119,16 @@ public class UserController {
             registerUser.getLastName(),
             registerUser.getEmail(),
             passwordService.hashPassword(registerUser.getPassword()),
+            TOTPSecretGenerator.generateSecret(),
             User.Role.USER
             );
 
-      User savedUser = userService.createUser(user);
+      userService.createUser(user);
       System.out.println("UserController.createUser, user saved in db");
       JsonObject obj = new JsonObject();
       obj.addProperty("answer", "User Saved");
+      obj.addProperty("totpUri", String.format("otpauth://totp/%s:%s?secret=%s&issuer=%s",
+        "TresorApp", user.getEmail(), user.getMfaSecret(), "TresorApp"));
       String json = new Gson().toJson(obj);
       System.out.println("UserController.createUser " + json);
       return ResponseEntity.accepted().body(json);
@@ -170,6 +174,17 @@ public class UserController {
          
          JsonObject obj = new JsonObject();
          obj.addProperty("message", "Invalid email or password");
+         String json = new Gson().toJson(obj);
+         
+         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(json);
+      }
+
+      // Verify MFA token
+      if (!user.getMfaSecret().isEmpty() && !TOTPSecretGenerator.verifyToken(user.getMfaSecret(), Integer.parseInt(loginUser.getMfaToken()))) {
+         logger.warn("UserController.doLoginUser: Invalid MFA token for user: {}", user.getEmail());
+         
+         JsonObject obj = new JsonObject();
+         obj.addProperty("message", "Invalid MFA token");
          String json = new Gson().toJson(obj);
          
          return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(json);

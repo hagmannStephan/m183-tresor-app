@@ -9,6 +9,7 @@ CREATE TABLE `user` (
     last_name VARCHAR(30) NOT NULL,
     email VARCHAR(30) NOT NULL UNIQUE,
     password LONGTEXT NOT NULL,
+    mfa_secret VARCHAR(32) DEFAULT NULL,  -- TOTP secret for multi-factor authentication
     role ENUM('ADMIN', 'USER') NOT NULL DEFAULT 'USER',
     PRIMARY KEY (id)
 ) ENGINE=InnoDB;
