@@ -1,6 +1,6 @@
 import React from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { QRCode } from 'qrcode.react';
+import { QRCodeCanvas } from 'qrcode.react';
 
 function SetupMFA() {
   const navigate = useNavigate();
@@ -17,7 +17,7 @@ function SetupMFA() {
     <div>
       <h2>Multi-Factor Authentication Setup</h2>
       <p>Scan this QR code with your Authenticator app (e.g., Google Authenticator or Authy):</p>
-      <QRCode value={totpUri} size={200} />
+      <QRCodeCanvas value={totpUri} size={200} />
       <p>Or enter this secret manually:</p>
       <code style={{ fontSize: '1.2rem' }}>{secret}</code>
       <br />

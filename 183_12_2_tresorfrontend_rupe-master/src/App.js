@@ -25,6 +25,7 @@ function App() {
     const [loginValues, setLoginValues] = useState({
         email: "",
         password: "",
+        mfaToken: "",
     });
     return (
         <BrowserRouter>
