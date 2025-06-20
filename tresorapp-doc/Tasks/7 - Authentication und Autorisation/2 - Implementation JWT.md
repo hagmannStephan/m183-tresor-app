@@ -5,3 +5,8 @@
 ```js
 'Authorization': `Bearer ${localStorage.getItem('token')}`
 ```
+# Sequence Diagram
+## Login (Successful)
+![[Pasted image 20250618135926.png]]
+
+## Request to secured page (Successful)
