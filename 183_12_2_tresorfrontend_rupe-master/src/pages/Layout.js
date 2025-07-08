@@ -34,13 +34,17 @@ const Layout = ({ loginValues }) => {
                             </ul>
                         </li>
                     )}
-                    <li>
-                        <a href="/">User</a>
-                        <ul>
-                            <li><Link to="/user/login">login</Link></li>
-                            <li><Link to="/user/register">register</Link></li>
-                        </ul>
-                    </li>
+
+                    {!isLoggedIn && (
+                        <li>
+                            <a href="/">User</a>
+                            <ul>
+                                <li><Link to="/user/login">login</Link></li>
+                                <li><Link to="/user/register">register</Link></li>
+                            </ul>
+                        </li>
+                    )}
+
                     <li>
                         <a href="/">Admin</a>
                         <ul>
@@ -50,6 +54,7 @@ const Layout = ({ loginValues }) => {
                             <li>All secrets</li>
                         </ul>
                     </li>
+
                     <li>
                         <Link to="/">About</Link>
                     </li>
