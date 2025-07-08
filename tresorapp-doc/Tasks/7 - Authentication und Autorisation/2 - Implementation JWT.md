@@ -6,7 +6,11 @@
 'Authorization': `Bearer ${localStorage.getItem('token')}`
 ```
 # Sequence Diagram
-## Login (Successful)
-![[Pasted image 20250618135926.png]]
 
-## Request to secured page (Successful)
+## Register with Email
+![[regist-with-email.png]]
+## Login with Email
+![[login-with-email-jwt.png]]
+
+## Access secured resource
+![[access-secured-resource-jwt.png]]
