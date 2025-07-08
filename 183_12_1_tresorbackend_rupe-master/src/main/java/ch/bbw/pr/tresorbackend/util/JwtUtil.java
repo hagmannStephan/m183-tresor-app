@@ -13,7 +13,8 @@ import javax.crypto.SecretKey;
 @Component
 public class JwtUtil {
     // It's recommended to load the key from a secure location in production
-    private final Key key = Keys.hmacShaKeyFor("your-256-bit-secret-key-here-must-be-long-enough".getBytes(StandardCharsets.UTF_8));    private final long expirationMs = 86400000; // 24 hours
+    private final Key key = Keys.hmacShaKeyFor("your-256-bit-secret-key-here-must-be-long-enough".getBytes(StandardCharsets.UTF_8));    
+    private final long expirationMs = 86400000; // 24 hours
 
     public String generateToken(String subject, String role) {
         Date now = new Date();

@@ -6,3 +6,5 @@
 1. Run `npm install qrcode.react` to install plugin for qr-code generation
 2. After registration display the qr-code sent from the backend so that the user can safe it in his auth-app
 3. With login ask for mfa code
+# Sequence Diagram
+As seen in [[2 - Implementation JWT]] (Login Success) Workflow

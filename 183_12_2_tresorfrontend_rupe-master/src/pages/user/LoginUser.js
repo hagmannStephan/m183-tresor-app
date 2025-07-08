@@ -37,6 +37,7 @@ function LoginUser({ loginValues, setLoginValues }) {
                 localStorage.setItem('token', data.token);
                 localStorage.setItem('password', loginValues.password); // Note: as per instruction
                 localStorage.setItem('isLoggedIn', 'true');
+                localStorage.setItem('role', data.role);
 
                 navigate('/');
             } else {

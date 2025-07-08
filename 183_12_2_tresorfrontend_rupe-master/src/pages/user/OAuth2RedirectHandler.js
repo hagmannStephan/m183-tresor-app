@@ -14,14 +14,16 @@ const OAuth2RedirectHandler = ({ setLoginValues }) => {
         const email = params.get('email');
         const userId = params.get('userId');
         const password = params.get('password'); // Not for prod, but ok for dev
+        const role = params.get('role');
 
 
-        if (token && email && userId && password) {
+        if (token && email && userId && password && role) {
             localStorage.setItem('token', token);
             localStorage.setItem('userEmail', email);
             localStorage.setItem('userId', userId);
             localStorage.setItem('isLoggedIn', 'true');
             localStorage.setItem('password', password);
+            localStorage.setItem('role', role);
 
             // Set login values for parent state
             if (setLoginValues) {

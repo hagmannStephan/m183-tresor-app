@@ -5,3 +5,12 @@
 ```js
 'Authorization': `Bearer ${localStorage.getItem('token')}`
 ```
+# Sequence Diagram
+
+## Register with Email
+![[regist-with-email.png]]
+## Login with Email
+![[login-with-email-jwt.png]]
+
+## Access secured resource
+![[access-secured-resource-jwt.png]]

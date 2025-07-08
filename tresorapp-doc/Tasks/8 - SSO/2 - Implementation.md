@@ -61,3 +61,7 @@ I chose Google `oAuth` because it is the most common one and a bit easier than t
 	Sign in with Google
 </button>
 ```
+# Sequence Diagram
+## Register / Login via Google SSO
+
+![[regist-or-login-sso.png]]
