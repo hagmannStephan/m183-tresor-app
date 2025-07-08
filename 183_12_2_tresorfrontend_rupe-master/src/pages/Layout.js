@@ -3,19 +3,32 @@ import { useState, useEffect } from "react";
 
 const Layout = ({ loginValues }) => {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
+    const [role, setRole] = useState(null);
 
     useEffect(() => {
         // Initialize from localStorage
         const loggedIn = localStorage.getItem('isLoggedIn') === 'true';
+        const storedRole = localStorage.getItem('role');
         setIsLoggedIn(loggedIn);
+        setRole(storedRole);
     }, []);
 
-    // Update state when loginValues change
     useEffect(() => {
         const loggedIn = loginValues.email !== '';
         setIsLoggedIn(loggedIn);
         localStorage.setItem('isLoggedIn', loggedIn.toString());
     }, [loginValues.email]);
+
+    useEffect(() => {
+        const interval = setInterval(() => {
+            const storedRole = localStorage.getItem('role');
+            if (storedRole !== role) {
+                setRole(storedRole);
+            }
+        }, 500);
+
+        return () => clearInterval(interval);
+    }, [role]);
 
     return (
         <>
@@ -45,15 +58,18 @@ const Layout = ({ loginValues }) => {
                         </li>
                     )}
 
-                    <li>
-                        <a href="/">Admin</a>
-                        <ul>
-                            <li><Link to="/user/users">All users</Link></li>
-                            <li>Add user</li>
-                            <li><Link to="/user/users/:id">Edit user</Link></li>
-                            <li>All secrets</li>
-                        </ul>
-                    </li>
+                    {/* ADMIN-only section */}
+                    {role === 'ADMIN' && (
+                        <li>
+                            <a href="/">Admin</a>
+                            <ul>
+                                <li><Link to="/user/users">All users</Link></li>
+                                <li>Add user</li>
+                                <li><Link to="/user/users/:id">Edit user</Link></li>
+                                <li>All secrets</li>
+                            </ul>
+                        </li>
+                    )}
 
                     <li>
                         <Link to="/">About</Link>
