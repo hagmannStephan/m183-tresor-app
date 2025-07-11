@@ -14,7 +14,7 @@ const Layout = ({ loginValues }) => {
     }, []);
 
     useEffect(() => {
-        const loggedIn = loginValues.email !== '';
+        const loggedIn = loginValues.email && loginValues.email !== '' ? true : false;
         setIsLoggedIn(loggedIn);
         localStorage.setItem('isLoggedIn', loggedIn.toString());
     }, [loginValues.email]);
