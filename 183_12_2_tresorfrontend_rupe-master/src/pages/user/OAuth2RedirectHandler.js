@@ -16,6 +16,8 @@ const OAuth2RedirectHandler = ({ setLoginValues }) => {
         const password = params.get('password'); // Not for prod, but ok for dev
         const role = params.get('role');
 
+        console.log(params, token, email, userId, password, role);
+
 
         if (token && email && userId && password && role) {
             localStorage.setItem('token', token);

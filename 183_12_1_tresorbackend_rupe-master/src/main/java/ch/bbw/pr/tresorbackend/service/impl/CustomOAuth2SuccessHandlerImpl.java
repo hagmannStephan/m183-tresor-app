@@ -47,6 +47,7 @@ public class CustomOAuth2SuccessHandlerImpl implements AuthenticationSuccessHand
                 .queryParam("email", user.getEmail())
                 .queryParam("userId", user.getId())
                 .queryParam("password", user.getPassword()) // Not optimal, but ok for test app
+                .queryParam("role", user.getRole().name())
                 .build().toUriString();
         
         response.sendRedirect(redirectUrl);
