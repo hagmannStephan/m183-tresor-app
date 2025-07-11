@@ -39,6 +39,13 @@ function LoginUser({ loginValues, setLoginValues }) {
                 localStorage.setItem('isLoggedIn', 'true');
                 localStorage.setItem('role', data.role);
 
+                console.log('Login values set:', {
+                    email: data.email,
+                    password: loginValues.password,
+                    mfaToken: loginValues.mfaToken,
+                    role: data.role
+                });
+
                 navigate('/');
             } else {
                 console.error('Login failed:', data);

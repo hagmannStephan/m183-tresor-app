@@ -32,7 +32,7 @@ const Layout = ({ loginValues }) => {
 
     return (
         <>
-            <nav style={{ marginLeft: "20px" }}>
+            <nav>
                 <h1>The secret tresor application</h1>
                 <p>{loginValues.email === '' ? 'No user logged in' : 'user: ' + loginValues.email}</p>
                 <ul>

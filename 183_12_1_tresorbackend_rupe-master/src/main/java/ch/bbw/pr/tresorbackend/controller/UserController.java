@@ -201,6 +201,7 @@ public class UserController {
       obj.addProperty("firstName", user.getFirstName());
       obj.addProperty("lastName", user.getLastName());
       obj.addProperty("email", user.getEmail());
+      obj.addProperty("role", user.getRole().name());
       
       String json = new Gson().toJson(obj);
       return ResponseEntity.ok().body(json);
